@@ -46,14 +46,8 @@ namespace DeanCode
 
         public void SendNotification(string message, NotificationType type, AudioClip fadeInSound, AudioClip fadeOutSound, float displayDuration = 5.0f)
         {
-            Debug.Log("start");
-            var notification2 = Instantiate(notificationPrefab.gameObject, transform)
-                ;
-            Debug.Log("stop: " + notification2);
-
-            var notification = notification2.GetComponent<Notification>();
-
-            Debug.Log("stop: " + notification);
+            var notification = Instantiate(notificationPrefab.gameObject, transform)
+                .GetComponent<Notification>();
 
             notification.Open(this, prevNotification, message, type, displayDuration, fadeInSound, fadeOutSound);
             prevNotification = notification;
