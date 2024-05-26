@@ -46,8 +46,8 @@ using DeanCode;
 
 void Start()
 {
-    // Send a `Hello World!` Notification with a warning symbol
-    manager.SendNotification("Hello World!", NotificationType.Warning);
+    // Send a `Hello World!` Notification with a warning symbol for 10 seconds
+    manager.SendNotification("Hello World!", NotificationType.Warning, 10);
 }
 ```
 
