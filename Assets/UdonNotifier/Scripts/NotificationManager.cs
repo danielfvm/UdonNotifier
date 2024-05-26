@@ -17,7 +17,7 @@ namespace DeanCode
     [SerializeField]
     public enum NotificationLayout
     {
-        Down,
+        Bottom,
         Top,
     }
     
@@ -26,7 +26,7 @@ namespace DeanCode
     {
         [Header("Settings")]
         [SerializeField] public float scale = 1.0f;
-        [SerializeField] public NotificationLayout layout = NotificationLayout.Down;
+        [SerializeField] public NotificationLayout layout = NotificationLayout.Bottom;
 
         [Header("Asset References")]
         [SerializeField] private Notification notificationPrefab;

@@ -29,7 +29,7 @@ namespace DeanCode
 
         private float GetOffset()
         {
-            if (manager.layout == NotificationLayout.Down)
+            if (manager.layout == NotificationLayout.Bottom)
                 return 20f - Offset() * 10f * manager.scale;
             return Offset() * 10f * manager.scale - 20f;;
         }

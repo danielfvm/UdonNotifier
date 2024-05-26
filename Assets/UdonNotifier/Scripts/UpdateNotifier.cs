@@ -15,19 +15,15 @@ namespace DeanCode
         [SerializeField, Tooltip("Seconds to display message.")] 
         private float messageDuration = 10;
 
-        [SerializeField]
-        public int localVersion;
-        public string localUpload;
 
         [SerializeField, TextArea, Tooltip("Warning message to show when they joined an outdated instance.")] 
         private string displayMessage = "<color=#e76464>You joined an outdated instance, things might be broken!</color>";
 
         /* Local Fields */ 
-        [UdonSynced] 
-        public int instanceVersion;
-
-        [UdonSynced] 
-        public string instanceUpload;
+        [HideInInspector] public int localVersion;
+        [HideInInspector] public string localUpload;
+        [UdonSynced, HideInInspector] public int instanceVersion;
+        [UdonSynced, HideInInspector] public string instanceUpload;
  
         public void Start() 
         {
@@ -57,7 +53,7 @@ namespace DeanCode
  
         public override void OnDeserialization()
         {
-            Debug.Log($"<color=blue>[UpdateNotifier]</color> Local version: {localVersion} ({localUpload}), Instance version: {instanceVersion} ({instanceUpload})");
+            Debug.Log($"<color=#4287f5>[UpdateNotifier]</color> Local version: {localVersion} ({localUpload}), Instance version: {instanceVersion} ({instanceUpload})");
             SendCustomEventDelayedSeconds(nameof(CheckVersion), messageDelay);
         }
     }
