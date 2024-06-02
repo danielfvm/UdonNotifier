@@ -31,21 +31,20 @@ namespace DeanCode
 
         /* Local Fields */
         private NotificationManager manager;
-        private float joinTime;
-
+        private float joinTime = -10;
 
         public void Start()
         {
             manager = GetComponent<NotificationManager>();
+            if (showOwnJoinMessage)
+                OnPlayerJoined(Networking.LocalPlayer);
+            
             joinTime = Time.time;
         }
 
         public override void OnPlayerJoined(VRCPlayerApi player)
         {
-            if (!player.isLocal && Time.time < joinTime + 1)
-                return;
-
-            if (player.isLocal && !showOwnJoinMessage)
+            if (Time.time < joinTime + 1)
                 return;
 
             manager.SendNotification(
