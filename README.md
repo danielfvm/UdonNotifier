@@ -8,6 +8,8 @@ Additionally supports:
 * Overriding notification sound and display time
 * Supports showing multiple notifications at the same time
 
+A preview VRChat world is available [here](https://vrchat.com/home/world/wrld_b0cb0277-4e43-45e5-89be-ba671fa25562). 
+
 ![image](https://github.com/danielfvm/UdonNotifier/assets/23420640/37afeafc-1162-4cc9-a6ab-c74f3aea948e)
 
 ## Installation
