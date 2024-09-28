@@ -13,7 +13,7 @@ A preview VRChat world is available [here](https://vrchat.com/home/world/wrld_b0
 ![image](https://github.com/user-attachments/assets/a5ae01a2-f3e9-49af-b2f5-c7e97f8be93b)
 
 ## Installation
-Download the prefab from releases, double click the `.unitypackage` and in Unity click on `Import`. Make sure to import TextMeshPro Assets if you haven't already!
+Download the prefab from releases, double click the `.unitypackage` and in Unity click on `Import`. Make sure to also import the required TextMeshPro Assets if you haven't already!
 
 ![image](https://github.com/danielfvm/UdonNotifier/assets/23420640/57282709-bd87-4bf2-8345-422ff77d4c95)
 
