@@ -1,4 +1,4 @@
-# UdonNotifier
+# UdonNotifier v2
 A VRChat Notification System for your world. Use this prefab for sending notification messages to players. You can use it for sending error messages, hints, tooltips, visual feedback after interacting with objects or use some of the built in features like:
 * Player Join/Leave notification
 * Outdated instance warning
