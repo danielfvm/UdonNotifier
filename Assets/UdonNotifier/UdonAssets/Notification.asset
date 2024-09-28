@@ -191,7 +191,7 @@ MonoBehaviour:
       Data: 12|System.RuntimeType, mscorlib
     - Name: 
       Entry: 1
-      Data: UnityEngine.UI.Text, UnityEngine.UI
+      Data: TMPro.TMP_Text, Unity.TextMeshPro
     - Name: 
       Entry: 8
       Data: 

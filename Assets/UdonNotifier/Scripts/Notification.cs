@@ -1,4 +1,6 @@
 ﻿
+using System;
+using TMPro;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +13,7 @@ namespace DeanCode
         [Header("Internal References")]
         [SerializeField] private Animator animator;
         [SerializeField] private Image icon;
-        [SerializeField] private Text text;
+        [SerializeField] private TMP_Text text;
         [SerializeField] private AudioSource audioSource;
 
         [Header("Asset References")]
@@ -42,7 +44,7 @@ namespace DeanCode
             var head = localPlayer.GetTrackingData(VRCPlayerApi.TrackingDataType.Head);
             var dir = head.rotation * Quaternion.Euler(prevOffset, 0, 0);
             transform.position = head.position + dir * Vector3.forward * eyeHeight;
-            transform.localScale = Vector3.one * eyeHeight * 0.001f * manager.scale;
+            transform.localScale = 0.001f * eyeHeight * manager.scale * Vector3.one;
             transform.rotation = head.rotation;
             
             if (localPlayer.IsUserInVR()) 
@@ -65,12 +67,13 @@ namespace DeanCode
             AudioClip fadeOutSound
         ) {
             this.prevNotification = prevNotification;
-            if (prevNotification) prevNotification.nextNotification = this;
+            if (prevNotification != null) 
+                prevNotification.nextNotification = this;
  
             this.manager = manager;
             this.fadeOutSound = fadeOutSound;
             icon.sprite = icons[(int)type];
-            text.text = message;
+            ((TextMeshPro)text).text = message;
             localPlayer = Networking.LocalPlayer;
             eyeHeight = localPlayer.GetAvatarEyeHeightAsMeters();
             prevOffset = GetOffset();
@@ -89,8 +92,9 @@ namespace DeanCode
 
         public void Delete()
         {
-            if (prevNotification) prevNotification.nextNotification = nextNotification;
-            if (nextNotification) nextNotification.prevNotification = prevNotification;
+            if (manager.prevNotification == this) manager.prevNotification = prevNotification;
+            if (prevNotification != null) prevNotification.nextNotification = nextNotification;
+            if (nextNotification != null) nextNotification.prevNotification = prevNotification;
 
             Destroy(gameObject);
         }
@@ -102,6 +106,11 @@ namespace DeanCode
                 return 0;
             
             return prevNotification.Offset() + 1;
+        }
+
+        public string GetText()
+        {
+            return ((TextMeshPro)text).text;
         }
     }
 }

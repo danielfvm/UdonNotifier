@@ -33,10 +33,13 @@ namespace DeanCode
         [SerializeField] private AudioClip defaultFadeIn, defaultFadeOut;
 
         /* Fields */
-        [HideInInspector] private Notification prevNotification;
+        [HideInInspector] public Notification prevNotification;
 
         public void SendNotification(string message, NotificationType type, float displayDuration = 5.0f)
         {
+            if (message.Length == 0)
+                return;
+
             var notification = Instantiate(notificationPrefab.gameObject, transform)
                 .GetComponent<Notification>();
 
@@ -46,6 +49,9 @@ namespace DeanCode
 
         public void SendNotification(string message, NotificationType type, AudioClip fadeInSound, AudioClip fadeOutSound, float displayDuration = 5.0f)
         {
+            if (message.Length == 0)
+                return;
+
             var notification = Instantiate(notificationPrefab.gameObject, transform)
                 .GetComponent<Notification>();
 

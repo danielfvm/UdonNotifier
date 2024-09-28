@@ -3,13 +3,14 @@ Shader "DeanCode/Notification"
     Properties
     {
         [PerRendererData] _MainTex ("Texture", 2D) = "white" {}
+        [HDR]_FaceColor	("Face Color", Color) = (1,1,1,1)
         _Color ("Tint", Color) = (1,1,1,1)
     }
     SubShader
     {
         Tags
         {
-            "Queue"="Transparent"
+            "Queue"="Overlay"
             "IgnoreProjector"="True"
             "RenderType"="Transparent"
             "PreviewType"="Plane"
@@ -39,7 +40,7 @@ Shader "DeanCode/Notification"
             struct v2f
             {
                 float2 uv : TEXCOORD0;
-                float4 color : COLOR0;
+                float4 color : COLOR;
                 float4 vertex : SV_POSITION;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
@@ -48,6 +49,7 @@ Shader "DeanCode/Notification"
             float4 _MainTex_ST;
             fixed4 _TextureSampleAdd;
             float4 _Color;
+            float4 _FaceColor;
 
             v2f vert (appdata v)
             {
@@ -55,7 +57,7 @@ Shader "DeanCode/Notification"
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.color = v.color * _Color;
+                o.color = v.color * _FaceColor;
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;
             }

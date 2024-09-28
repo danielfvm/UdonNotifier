@@ -61,12 +61,13 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 5040446157177306200}
-  scale: 0.75
+  scale: 0.5
   layout: 0
   notificationPrefab: {fileID: 3708250493937068931, guid: a3cc82db6288d724a896e7cd51b53a50,
     type: 3}
   defaultFadeIn: {fileID: 8300000, guid: 8b2c0c010c281024c9465dc822dd24a3, type: 3}
   defaultFadeOut: {fileID: 8300000, guid: 5470d582c2e8033419c99604e672cea7, type: 3}
+  prevNotification: {fileID: 0}
 --- !u!114 &14717378223834297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,7 +103,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6870075287513285204}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 245fcf293edfd834e90026edf4604fe9, type: 3}
   m_Name: 
@@ -235,7 +236,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6870075287513285204}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45115577ef41a5b4ca741ed302693907, type: 3}
   m_Name: 
