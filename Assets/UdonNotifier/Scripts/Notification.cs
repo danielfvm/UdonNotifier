@@ -38,6 +38,9 @@ namespace DeanCode
 
         public void Update() 
         {
+            if (manager == null)
+                return;
+                
             var rot = GetOffset();
             prevOffset += (rot - prevOffset) * 0.1f;
 

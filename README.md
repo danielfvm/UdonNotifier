@@ -54,5 +54,9 @@ void Start()
 }
 ```
 
+## Changelog
+v2.1 (April 20, 2025)
+Fixed Prefab not working after uploading to VRChat. 
+
 ## Credits
 Crediting this prefab is not required, but if you do it is very appreciated <3 
