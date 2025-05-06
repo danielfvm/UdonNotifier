@@ -75,7 +75,7 @@ namespace DeanCode
  
             this.manager = manager;
             this.fadeOutSound = fadeOutSound;
-            icon.sprite = icons[(int)type];
+            if (icon != null) icon.sprite = icons[(int)type];
             ((TextMeshPro)text).text = message;
             localPlayer = Networking.LocalPlayer;
             eyeHeight = localPlayer.GetAvatarEyeHeightAsMeters();
