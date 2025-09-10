@@ -48,7 +48,7 @@ namespace DeanCode
                 return;
 
             var manager = GetComponent<NotificationManager>();
-            manager.SendNotification(displayMessage, NotificationType.Error, messageDuration);
+            manager._SendNotification(displayMessage, NotificationType.Error, messageDuration);
         }
  
         public override void OnDeserialization()

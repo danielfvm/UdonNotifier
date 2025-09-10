@@ -12,7 +12,7 @@ namespace DeanCode
         
         public override void Interact()
         {
-            manager.SendNotification(message, type);
+            manager._SendNotification(message, type);
         }
     }
 }
