@@ -1,4 +1,4 @@
-# UdonNotifier v2
+# UdonNotifier v3
 A VRChat Notification System for your world. Use this prefab for sending notification messages to players. You can use it for sending error messages, hints, tooltips, visual feedback after interacting with objects or use some of the built in features like:
 * Player Join/Leave notification
 * Outdated instance warning
@@ -50,12 +50,25 @@ using DeanCode;
 void Start()
 {
     // Send a `Hello World!` Notification with a warning symbol for 10 seconds
-    manager.SendNotification("Hello World!", NotificationType.Warning, 10);
+    manager._SendNotification("Hello World!", NotificationType.Warning, 10);
 }
 ```
 
 ## Changelog
+v3.0 (Sep 10, 2025)
+
+Made `_SendNotification` non-networkable. - [@CompuGenius-Programs](https://github.com/CompuGenius-Programs)
+
+
+v2.2 (May 6, 2025)
+
+Fix `showOwnJoinMessage` and don't show joins of previous players. [@CompuGenius-Programs](https://github.com/CompuGenius-Programs)
+
+Fixed notification not scaling.
+
+
 v2.1 (April 20, 2025)
+
 Fixed Prefab not working after uploading to VRChat. 
 
 ## Credits

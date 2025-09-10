@@ -35,7 +35,7 @@ namespace DeanCode
         /* Fields */
         [HideInInspector] public Notification prevNotification;
 
-        public void SendNotification(string message, NotificationType type, float displayDuration = 5.0f)
+        public void _SendNotification(string message, NotificationType type, float displayDuration = 5.0f)
         {
             if (message.Length == 0)
                 return;
@@ -47,7 +47,7 @@ namespace DeanCode
             prevNotification = notification;
         }
 
-        public void SendNotification(string message, NotificationType type, AudioClip fadeInSound, AudioClip fadeOutSound, float displayDuration = 5.0f)
+        public void _SendNotification(string message, NotificationType type, AudioClip fadeInSound, AudioClip fadeOutSound, float displayDuration = 5.0f)
         {
             if (message.Length == 0)
                 return;

@@ -25,7 +25,7 @@ namespace DeanCode
         void Start()
         {
             manager = GetComponent<NotificationManager>();
-            manager.SendNotification(
+            manager._SendNotification(
                 welcomeMessage, 
                 NotificationType.Info, 
                 welcomeSound, null,
