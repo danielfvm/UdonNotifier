@@ -15,7 +15,7 @@ A preview VRChat world is available [here](https://vrchat.com/home/world/wrld_b0
 ## Installation
 Download the prefab from releases, double click the `.unitypackage` and in Unity click on `Import`. Make sure to also import the required TextMeshPro Assets if you haven't already!
 
-![image](https://github.com/ItsKaedeV/UdonNotifier/assets/23420640/57282709-bd87-4bf2-8345-422ff77d4c95)
+![image](https://github.com/danielfvm/UdonNotifier/assets/23420640/57282709-bd87-4bf2-8345-422ff77d4c95)
 
 Finally, Drag and Drop the `Assets/UdonNotifier/NotificationManager` Prefab into your Scene.
 
@@ -37,7 +37,7 @@ The `NotificationManager` contains following scripts that can individually be co
 * Update Notifier
   Will automatically warn the player if they joined an outdated instance of your world. This can be useful if you have many active players in your world and frequently update your world, as things might get broken when players with different versions of your world join the same instance. You can change the message and display duration in the settings. Disable the Component if you don't need this. Additionally it will display a debug log message that shows the version and upload date of both the instance and your local version.
   
-  ![image](https://github.com/ItsKaedeV/UdonNotifier/assets/23420640/af8b40af-605e-4f3b-aadb-67a5940e9865)
+  ![image](https://github.com/danielfvm/UdonNotifier/assets/23420640/af8b40af-605e-4f3b-aadb-67a5940e9865)
 
 ## Custom Messages
 Sending a custom notification from UdonSharp is as easy as:
