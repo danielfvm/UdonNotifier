@@ -55,6 +55,13 @@ void Start()
 ```
 
 ## Changelog
+v3.0 (Sep 10, 2025)
+Made `_SendNotification` non-networkable. - @CompuGenius-Programs
+
+v2.2 (May 6, 2025)
+Fix `showOwnJoinMessage` and don't show joins of previous players. - @CompuGenius-Programs
+Fixed notification not scaling.
+
 v2.1 (April 20, 2025)
 Fixed Prefab not working after uploading to VRChat. 
 
