@@ -39,7 +39,7 @@ namespace DeanCode
             if (player.isLocal && !showOwnJoinMessage) return;
             if (player.playerId < Networking.LocalPlayer.playerId) return;
 
-            manager.SendNotification(
+            manager._SendNotification(
                 joinMessage.Replace("<player>", player.displayName), 
                 NotificationType.Player, 
                 joinSound, null,
@@ -51,7 +51,7 @@ namespace DeanCode
         {
             if (player.isLocal && !showOwnJoinMessage) return;
             
-            manager.SendNotification(
+            manager._SendNotification(
                 leaveMessage.Replace("<player>", player.displayName), 
                 NotificationType.Player, 
                 leaveSound, null,
