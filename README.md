@@ -57,12 +57,12 @@ void Start()
 ## Changelog
 v3.0 (Sep 10, 2025)
 
-Made `_SendNotification` non-networkable. - [@CompuGenius-Programs](https://github.com/CompuGenius-Programs)
+Made `_SendNotification` non-networkable. - [@CompuGeniusCode](https://github.com/CompuGeniusCode)
 
 
 v2.2 (May 6, 2025)
 
-Fix `showOwnJoinMessage` and don't show joins of previous players. [@CompuGenius-Programs](https://github.com/CompuGenius-Programs)
+Fix `showOwnJoinMessage` and don't show joins of previous players. [@CompuGeniusCode](https://github.com/CompuGeniusCode)
 
 Fixed notification not scaling.
 
