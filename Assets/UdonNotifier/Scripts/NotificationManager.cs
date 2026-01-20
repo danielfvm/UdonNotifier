@@ -1,26 +1,26 @@
-﻿
+﻿using System;
 using UdonSharp;
 using UnityEngine;
 
 namespace DeanCode
 {
-    [SerializeField]
-    public enum NotificationType 
+    [Serializable]
+    public enum NotificationType
     {
         Info,
         Warning,
         Error,
         Player,
-        Time,
+        Time
     }
 
-    [SerializeField]
+    [Serializable]
     public enum NotificationLayout
     {
         Bottom,
         Top,
     }
-    
+
     [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
     public class NotificationManager : UdonSharpBehaviour
     {
@@ -32,31 +32,30 @@ namespace DeanCode
         [SerializeField] private Notification notificationPrefab;
         [SerializeField] private AudioClip defaultFadeIn, defaultFadeOut;
 
-        /* Fields */
         [HideInInspector] public Notification prevNotification;
 
-        public void _SendNotification(string message, NotificationType type, float displayDuration = 5.0f)
+        public Notification _SendNotification(string message, NotificationType type, float displayDuration = 5.0f)
         {
-            if (message.Length == 0)
-                return;
+            if (string.IsNullOrEmpty(message)) return null;
 
-            var notification = Instantiate(notificationPrefab.gameObject, transform)
-                .GetComponent<Notification>();
+            var notification = Instantiate(notificationPrefab.gameObject, transform).GetComponent<Notification>();
 
-            notification.Open(this, prevNotification, message, type, displayDuration, defaultFadeIn, defaultFadeOut);
+            notification._Open(this, prevNotification, message, type, displayDuration, defaultFadeIn, defaultFadeOut);
             prevNotification = notification;
+
+            return notification;
         }
 
-        public void _SendNotification(string message, NotificationType type, AudioClip fadeInSound, AudioClip fadeOutSound, float displayDuration = 5.0f)
+        public Notification _SendNotification(string message, NotificationType type, AudioClip fadeInSound, AudioClip fadeOutSound, float displayDuration = 5.0f)
         {
-            if (message.Length == 0)
-                return;
+            if (string.IsNullOrEmpty(message)) return null;
 
-            var notification = Instantiate(notificationPrefab.gameObject, transform)
-                .GetComponent<Notification>();
+            var notification = Instantiate(notificationPrefab.gameObject, transform).GetComponent<Notification>();
 
-            notification.Open(this, prevNotification, message, type, displayDuration, fadeInSound, fadeOutSound);
+            notification._Open(this, prevNotification, message, type, displayDuration, fadeInSound, fadeOutSound);
             prevNotification = notification;
+
+            return notification;
         }
     }
 }
