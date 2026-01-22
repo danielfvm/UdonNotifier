@@ -45,16 +45,41 @@ Sending a custom notification from UdonSharp is as easy as:
 using DeanCode;
 
 // Reference to the NotificationManager GameObject
-[SerializeField] NotificationManager manager;
+[SerializeField] NotificationManager notificationManager;
 
-void Start()
+private Notification persistentNotification;
+
+private void Start()
 {
-    // Send a `Hello World!` Notification with a warning symbol for 10 seconds
-    manager._SendNotification("Hello World!", NotificationType.Warning, 10);
+    // Send a `Hello World!` notification with a warning symbol for 10 seconds
+    notificationManager._SendNotification("Hello World!", NotificationType.Warning, 10);
+    
+    // Send a persistent `This is Persistent!` notification with an error symbol
+    persistentNotification = notificationManager._SendNotification("This is Persistent!", NotificationType.Error, 0);
+    
+    // Dismiss the persistent notification after 30 seconds
+    SendCustomEventDelayedSeconds(nameof(DismissPersistentNotification), 30f);
+}
+
+public void DismissPersistentNotification()
+{
+    if (persistentNotification != null)
+    {
+        persistentNotification._Close();
+    }
 }
 ```
 
 ## Changelog
+v3.1 (Jan 19, 2026)
+
+Created Persistent Notifications if duration of 0 is passed. - [@CompuGeniusCode](https://github.com/CompuGeniusCode)
+
+Optimized player position/rotation tracking. - [@CompuGeniusCode](https://github.com/CompuGeniusCode)
+
+Made more public functions non-networkable. - [@CompuGeniusCode](https://github.com/CompuGeniusCode)
+
+
 v3.0 (Sep 10, 2025)
 
 Made `_SendNotification` non-networkable. - [@CompuGeniusCode](https://github.com/CompuGeniusCode)

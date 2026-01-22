@@ -1,6 +1,4 @@
-﻿
-using System;
-using TMPro;
+﻿using TMPro;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,83 +17,132 @@ namespace DeanCode
         [Header("Asset References")]
         [SerializeField] private Sprite[] icons;
 
-
-        /* Local Fields */
         private VRCPlayerApi localPlayer;
         private NotificationManager manager;
         private float eyeHeight;
         private AudioClip fadeOutSound;
+
         public Notification prevNotification, nextNotification;
- 
+
         private float prevOffset;
+
+        private bool isClosed;
+        private bool closeScheduled;
+
+        private bool trackingActive;
+
+        private const float BaseDepth = 20f;
+        private const float Step = 10f;
+        private const float Smooth = 0.1f;
+        private const float ScaleMul = 0.001f;
 
         private float GetOffset()
         {
             if (manager.layout == NotificationLayout.Bottom)
-                return 20f - Offset() * 10f * manager.scale;
-            return Offset() * 10f * manager.scale - 20f;;
+                return BaseDepth - Offset() * Step * manager.scale;
+
+            return Offset() * Step * manager.scale - BaseDepth;
         }
 
-        public void Update() 
+        private void _StartTracking()
         {
-            if (manager == null)
+            if (trackingActive) return;
+            trackingActive = true;
+            _TrackingTick();
+        }
+
+        private void _StopTracking()
+        {
+            trackingActive = false;
+        }
+
+        public void _TrackingTick()
+        {
+            if (!trackingActive || isClosed || !manager || !Utilities.IsValid(localPlayer))
+            {
+                trackingActive = false;
                 return;
-                
+            }
+
             var rot = GetOffset();
-            prevOffset += (rot - prevOffset) * 0.1f;
+            prevOffset += (rot - prevOffset) * Smooth;
 
             var head = localPlayer.GetTrackingData(VRCPlayerApi.TrackingDataType.Head);
-            var dir = head.rotation * Quaternion.Euler(prevOffset, 0, 0);
+
+            var dir = head.rotation * Quaternion.Euler(prevOffset, 0f, 0f);
+
             transform.position = head.position + dir * Vector3.forward * eyeHeight;
-            transform.localScale = 0.001f * eyeHeight * manager.scale * Vector3.one;
-            transform.rotation = head.rotation;
-            
-            if (localPlayer.IsUserInVR()) 
-                transform.rotation *= Quaternion.Euler(prevOffset, 0, 0);
+            transform.localScale = (ScaleMul * eyeHeight * manager.scale) * Vector3.one;
+
+            var r = head.rotation;
+            if (localPlayer.IsUserInVR())
+                r *= Quaternion.Euler(prevOffset, 0f, 0f);
+
+            transform.rotation = r;
+
+            SendCustomEventDelayedFrames(nameof(_TrackingTick), 1);
         }
 
         public override void OnAvatarEyeHeightChanged(VRCPlayerApi player, float prevEyeHeightAsMeters)
         {
-            if (player.isLocal)
+            if (Utilities.IsValid(player) && player.isLocal)
                 eyeHeight = player.GetAvatarEyeHeightAsMeters();
         }
 
-        public void Open(
+        public void _Open(
             NotificationManager manager,
-            Notification prevNotification, 
-            string message, 
-            NotificationType type, 
-            float displayDuration, 
-            AudioClip fadeInSound, 
+            Notification prevNotification,
+            string message,
+            NotificationType type,
+            float displayDuration,
+            AudioClip fadeInSound,
             AudioClip fadeOutSound
-        ) {
+        )
+        {
             this.prevNotification = prevNotification;
-            if (prevNotification != null) 
+            if (prevNotification != null)
                 prevNotification.nextNotification = this;
- 
+
             this.manager = manager;
             this.fadeOutSound = fadeOutSound;
+
+            isClosed = false;
+            closeScheduled = false;
+
             if (icon != null) icon.sprite = icons[(int)type];
-            ((TextMeshPro)text).text = message;
+            text.text = message;
+
             localPlayer = Networking.LocalPlayer;
-            eyeHeight = localPlayer.GetAvatarEyeHeightAsMeters();
+            eyeHeight = Utilities.IsValid(localPlayer) ? localPlayer.GetAvatarEyeHeightAsMeters() : 1.6f;
             prevOffset = GetOffset();
 
             if (fadeInSound) audioSource.PlayOneShot(fadeInSound);
             animator.SetTrigger("open");
-            SendCustomEventDelayedSeconds(nameof(Close), displayDuration);
+
+            _StartTracking();
+
+            if (displayDuration > 0f)
+            {
+                closeScheduled = true;
+                SendCustomEventDelayedSeconds(nameof(_Close), displayDuration);
+            }
         }
 
-        public void Close()
+        public void _Close()
         {
+            if (isClosed) return;
+
+            isClosed = true;
+            _StopTracking();
+
             if (fadeOutSound) audioSource.PlayOneShot(fadeOutSound);
             animator.SetTrigger("close");
-            SendCustomEventDelayedSeconds(nameof(Delete), 0.25f);
+            SendCustomEventDelayedSeconds(nameof(_Delete), 0.25f);
         }
 
-        public void Delete()
+        public void _Delete()
         {
-            if (manager.prevNotification == this) manager.prevNotification = prevNotification;
+            if (manager != null && manager.prevNotification == this) manager.prevNotification = prevNotification;
             if (prevNotification != null) prevNotification.nextNotification = nextNotification;
             if (nextNotification != null) nextNotification.prevNotification = prevNotification;
 
@@ -104,16 +151,10 @@ namespace DeanCode
 
         private int Offset()
         {
-            // root node
-            if (prevNotification == null)
-                return 0;
-            
+            if (prevNotification == null) return 0;
             return prevNotification.Offset() + 1;
         }
 
-        public string GetText()
-        {
-            return ((TextMeshPro)text).text;
-        }
+        public string _GetText() => text.text;
     }
 }
