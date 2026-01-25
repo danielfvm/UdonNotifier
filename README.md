@@ -58,10 +58,10 @@ private void Start()
     persistentNotification = notificationManager._SendNotification("This is Persistent!", NotificationType.Error, 0);
     
     // Dismiss the persistent notification after 30 seconds
-    SendCustomEventDelayedSeconds(nameof(DismissPersistentNotification), 30f);
+    SendCustomEventDelayedSeconds(nameof(_DismissPersistentNotification), 30f);
 }
 
-public void DismissPersistentNotification()
+public void _DismissPersistentNotification()
 {
     if (persistentNotification != null)
     {
